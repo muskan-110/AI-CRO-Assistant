@@ -1,24 +1,27 @@
 from dotenv import load_dotenv
-load_dotenv()                    # ← must be first, before everything else
-
+load_dotenv()
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.api.routes import router
 
+from app.api.routes import router
 
 app = FastAPI(title="AdPersonalize API")
 
-# ✅ CORS — allows your Vite frontend (localhost:5173) to call the backend
+# 🔥 VERY IMPORTANT — CORS FIX
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "https://ai-cro-assistant.vercel.app",   # Vite dev server
-        
-    ],
+    allow_origins=["*"],  # ✅ allow ALL (for demo)
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
+# Routes
 app.include_router(router)
+
+
+# Health check (VERY IMPORTANT for Render)
+@app.get("/")
+def root():
+    return {"message": "Backend running 🚀"}
