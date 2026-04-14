@@ -1,0 +1,17 @@
+# Node (frontend)
+client/node_modules
+client/dist
+
+# Python (backend)
+server/venv
+server/__pycache__
+server/*.pyc
+
+# Env
+.env
+server/.env
+client/.env
+
+# OS
+.DS_Store
+Thumbs.db
